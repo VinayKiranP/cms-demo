@@ -1,0 +1,520 @@
+/* CUSTOM FONTS */
+@font-face {
+    font-family: 'rubikregular';
+    src: url('../fonts/rubik-regular-webfont.eot');
+    src: url('../fonts/rubik-regular-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/rubik-regular-webfont.woff2') format('woff2'),
+        url('../fonts/rubik-regular-webfont.woff') format('woff'),
+        url('../fonts/rubik-regular-webfont.svg#rubikregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'rubikmedium';
+    src: url('../fonts/rubik-medium-webfont.eot');
+    src: url('../fonts/rubik-medium-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/rubik-medium-webfont.woff2') format('woff2'),
+        url('../fonts/rubik-medium-webfont.woff') format('woff'),
+        url('../fonts/rubik-medium-webfont.svg#rubikmedium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'rubikbold';
+    src: url('../fonts/rubik-bold-webfont.eot');
+    src: url('../fonts/rubik-bold-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/rubik-bold-webfont.woff2') format('woff2'),
+        url('../fonts/rubik-bold-webfont.woff') format('woff'),
+        url('../fonts/rubik-bold-webfont.svg#rubikbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+body {
+    font-family: 'rubikregular';
+    font-size: 14px;
+    color: #333;
+}
+a {
+    color: #3639a4;
+}
+label {
+    font-weight: normal;
+    font-family: 'rubikregular';
+}
+.main-header.navbar-default {
+    background-color: #3639a4;
+    border: 0px none;
+    border-radius: 0px;
+    padding-top:10px;
+    padding-bottom: 10px;
+    margin-bottom:0px;
+}
+
+.main-header .navbar-brand {
+    color: #fff;
+    text-transform: uppercase;
+    padding-top: 0px;
+    font-family: 'rubikbold';
+    font-size: 20px;
+    padding-bottom: 0px;
+    margin-top: 12px;
+    height: auto;
+}
+.main-header .navbar-brand:hover,
+.main-header .navbar-brand:focus {
+    color: #ff7364;
+}
+.main-header .navbar-nav > li {
+    margin-left:20px;
+    margin-right: 20px;
+}
+.main-header .navbar-nav>li.active {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+.main-header .navbar-nav > li > a {
+    color: #fff;
+    padding:10px 0px;
+    transition: all 0.15s ease-out;
+}
+.main-header .navbar-nav li a:hover,
+.main-header .navbar-nav li a:focus,
+.main-header .navbar-nav li a:active {
+    color: #ff7364;
+}
+.main-header .navbar-nav>.active>a {
+    background-color:#5691ca;
+    color:#fff;
+    border-radius:20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.main-header .navbar-nav >.active a:hover,
+.main-header .navbar-nav >.active a:focus,
+.main-header .navbar-nav >.active a:active {
+    color: #ff7364;
+    background-color: #fff;
+}
+.main-header .navbar-nav>.open>a,
+.main-header .navbar-nav>.open>a:focus,
+.main-header .navbar-nav>.open>a:hover {
+    background-color: transparent;
+    color: #fff;
+}
+.page-wrapper {
+    margin-top:60px;
+    min-height: calc(100vh - 60px);
+    position: relative;
+}
+.page-wrapper:before {
+    position: absolute;
+    width: 270px;
+    height: 100%;
+    background-color: #f5f5fa;
+    content: '';
+    display: block;
+    left: 0px;
+    z-index: -1;
+}
+.sidebar {
+    padding: 15px;
+    position: absolute;
+    left: 0px;
+    width: 270px;
+    background-color: #f5f5fa;    
+    z-index: 1;
+}
+.main-container {
+    padding-left: 270px;    
+    padding-top: 15px;
+}
+.user-profile {
+    margin-bottom: 10px;
+}
+.user-profile .user-profile-link {
+    float: left;
+    padding-left: 60px;
+    padding-top: 15px;
+    margin-bottom: 15px;
+}
+.user-profile-link {
+    position: relative;
+    color: #3639a4;
+    font-family: 'rubikmedium';
+}
+.user-profile-link > span {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    left: 0px;
+    top: 0px;
+    border-radius: 50%;
+    border: 1px solid #76e9f0;
+    display: block;
+    overflow: hidden;
+}
+.user-profile-link>span>img {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+}
+.user-profile > .dropdown {
+    float: right;
+}
+.user-profile>.dropdown > .btn {
+    width: 20px;
+    height: 20px;
+    border: 0px none;
+    background: url(../img/settings_icon.svg) no-repeat center center transparent;
+    margin-top: 15px;
+    margin-right: -10px;
+}
+.user-profile>.dropdown.open>.dropdown-menu {
+    margin-right: -10px;
+}
+.sidebar-nav h4 {
+    background-color:#b5eff5;
+    padding: 10px 0px 10px 20px;
+    margin-top: 20px;
+    margin-right: -15px;
+    border-radius: 30px 0px 0px 30px;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-family: 'rubikmedium';
+}
+.sidebar-nav ul {
+    padding-left:20px;
+}
+.sidebar-nav ul li {
+    list-style-type: none;
+    margin-top:15px;
+    margin-bottom:15px;
+}
+.sidebar-nav ul li a {
+    color: #000000;
+}
+.sidebar-nav ul .active a {
+    color:#ff7364;
+    font-family: 'rubikmedium';
+}
+.page-title h3 {
+    float: left;
+    font-family: 'rubikbold';
+    font-size: 22px;
+    margin-top: 10px;
+}
+.page-title .btn {
+    float: right;
+}
+.btn-primary {
+    background-color: #ff7364;
+    font-family: 'rubikmedium';
+    font-size: 16px;
+    border-color: #ff7364;
+    padding: 8px 30px;
+    border-radius: 20px;
+    transition: all 0.15s ease-out;
+}
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary:active:hover {
+    background-color: #d84333;
+    border-color: #d84333;
+}
+.advanced-search {
+    background-color: #fff1ef;
+    margin-top: 10px;
+}
+.advanced-search .panel-heading {
+    background-color: #3639a4;
+    border-radius: 0px;
+    margin: -1px -1px 0px -1px;
+    color: #fff;
+    text-transform: uppercase;
+    padding-top: 13px;  
+    font-family: 'rubikmedium';
+}
+.advanced-search .panel {
+    border-radius: 0px;
+}
+.advanced-search .panel,
+.form-control {
+    box-shadow: none;
+}
+.app-btn-group {
+    border-top: 1px solid #ccc;
+    padding-top: 15px;
+    text-align: center;
+}
+.btn-link {
+    color: #3639a4;
+    font-family: 'rubikmedium';
+}
+.btn-link:hover {
+    text-decoration: none;
+    color: #ff7364;
+}
+.advanced-search .panel-heading a {
+    position: relative;    
+}
+.advanced-search .panel-heading a:before {
+    position: absolute;
+    background: url(../img/white_arrow.svg) no-repeat center center transparent;
+    width: 15px;
+    height: 15px;
+    content: '';
+    right: -25px;
+    top: 0px;
+    display: block;
+    transform: rotate(90deg);
+    transition: all 0.25s ease-in;
+}
+.advanced-search .panel-heading a.collapsed:before {
+    transform: rotate(0deg);
+}
+
+.custom-table {
+    margin-top: 10px;
+}
+.custom-table .table {
+    margin-bottom: 10px;
+}
+.custom-table .table > thead > tr > th {
+    text-transform:uppercase;
+    background-color:#f1fdfd;
+    border-bottom: 0px none;
+    padding: 15px;
+    color: #000;
+}
+.custom-table .table>tbody>tr>td {
+    border-top: 0px none;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 10px 15px;
+}
+.custom-table a {
+    color: #3639a4;
+}
+.table-footer {
+    margin-bottom: 10px;
+    text-align: center;
+}
+.table-footer .pagination {
+    margin: 0px;
+    float: left;
+}
+.table-footer .pagination>li>a,
+.table-footer .pagination>li>span {
+    border: 0px none;
+    border-radius: 0px;
+    color: #000;
+}
+.table-footer .pagination>li.active>a {
+    background-color: transparent;
+    color: #ff7364;
+    font-family: 'rubikmedium';
+}
+.entries-count {
+    float: right;
+    padding-top: 5px;
+}
+.entries {
+    display: inline-block;
+}
+.entries .form-control{
+    display: inline-block;
+    width: 70px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.footer-wrapper {
+    text-align: center;
+    margin-top: 30px;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    border-top: 1px solid #ddd;
+    font-size: 12px;
+}
+/* LOGIN CSS STARTS HERE */
+.login-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;    
+    box-shadow: 0px 30px 50px rgba(0,0,0,0.15);
+    width: 400px;
+    padding: 20px;    
+}
+.login-title {
+    background-color: #3639a4;
+    color: #fff;
+    margin: 0px;
+    text-align: center;
+    margin: -20px -20px 20px -20px;
+    padding: 15px;
+    text-transform: uppercase;
+}
+.login-container .form-control {
+    height: 45px;
+}
+.login-container .btn {
+    height: 45px;
+    text-transform: uppercase;
+    font-family: 'rubikmedium';
+    font-size: 16px;
+    border-radius: 30px;
+}
+.login-links {
+    margin-top: 40px;
+    text-align: center;
+}
+/* LOGIN CSS ENDS HERE */
+.radio label, .checkbox label {
+    padding-left: 30px;
+}
+.radio input[type=radio], .radio-inline input[type=radio], .checkbox input[type=checkbox], .checkbox-inline input[type=checkbox] {
+    opacity: 0;
+}
+.radio-inline, .checkbox-inline {
+    position: relative;
+    padding-left: 30px;
+}
+.checkbox input[type=checkbox] ~ .check-radio, .checkbox-inline input[type=checkbox] ~ .check-radio,
+.radio input[type=radio] ~ .check-radio, .radio-inline input[type=radio] ~ .check-radio{
+    position: absolute;
+    content: '';
+    width: 20px;
+    height: 20px;
+    border: 1px solid #bfbfbf;
+    background-color: #fff;
+    background-size: 0px;
+    background-position: center center;
+    border-radius: 3px;
+    left: 0px;
+    transition: all 0.1s ease-out;
+}
+
+.radio input[type=radio] ~ .check-radio, .radio-inline input[type=radio] ~ .check-radio {
+    border-radius: 10px;
+}
+
+.checkbox input[type=checkbox]:checked ~ .check-radio, .checkbox-inline input[type=checkbox]:checked ~ .check-radio {
+    background: url('../img/check-mark.svg') no-repeat center center #3639a4;
+    background-size: 12px;
+    border-color: #3639a4;
+}
+.radio input[type=radio]:checked ~ .check-radio, .radio-inline input[type=radio]:checked ~ .check-radio {
+    background: url('../img/radio-mark.svg') no-repeat center center #fff;
+    background-size: 12px;
+    border-color: #3639a4;
+}
+
+.main-tab > .tab-pane {
+    padding: 15px;
+    background-color: #fff;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+.sub-tab > .tab-pane {
+    padding-top: 15px;
+}
+.sub-tabs.nav-tabs>li.active>a, .sub-tabs.nav-tabs>li.active>a:hover, .sub-tabs.nav-tabs>li.active>a:focus {
+    border: 0px none;
+    color: #ff7364;
+    font-family: 'rubikmedium';
+    position: relative;
+}
+.sub-tabs.nav-tabs>li.active>a:after {
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    content: '';
+    bottom: -2px;
+    left: 0px;
+    background-color: #ff7364;
+    
+}
+.sub-tabs.nav-tabs>li>a {
+    padding: 10px 0px;
+}
+.sub-tabs.nav-tabs>li + li {
+    padding-left: 15px;
+}
+.sub-tabs.nav-tabs>li>a:hover {
+    background: none;
+    border-color:transparent;
+    color: #ff7364;
+}
+.button-block {    
+    border-top: 1px solid #ccc;
+    padding-top: 15px;
+    margin-bottom: 30px;
+}
+.menu-tree, .menu-tree ul {
+    list-style: none;
+    padding-left: 0px;
+}
+.menu-tree li {
+    padding-left: 50px;
+    position: relative;
+    margin-bottom: 15px;
+}
+.menu-tree li .icon {
+    position: absolute;
+    left: 20px;
+    top: 0px;
+    width: 20px;
+    height: 20px;
+    content: '';
+    z-index: 1;
+    display: block;  
+    opacity: 0.6;  
+}
+.menu-tree li .icon.folder {    
+    background: url(../img/folder.svg) no-repeat center center transparent;
+}
+.menu-tree li .icon.folder::before {
+    position: absolute;
+    left: -20px;
+    top: 0px;
+    width: 20px;
+    height: 20px;
+    content: '';
+    z-index: 1;
+    display: block;
+    opacity: 0.9;
+    background: url(../img/dark_arrow.svg) no-repeat center center transparent;
+    transform: rotate(90deg);
+    transition: all 0.15s ease-in;
+    background-size: 10px;
+}
+.menu-tree li .icon.folder.collapsed::before {
+    transform: rotate(0deg); 
+}
+.menu-tree li .icon.page {    
+    background: url(../img/page.svg) no-repeat center center transparent;
+}
+@media screen and (max-width: 1199px) {
+ .page-wrapper {
+     margin-top: 90px;
+     min-height: calc(100vh - 90px);     
+ }
+ .main-header .navbar-right {
+    float: left !important;
+ }
+ .main-header .navbar-nav>li {
+    margin-left: 10px;
+    margin-right: 10px;
+ }
+ .main-header .navbar-brand {
+     margin-top: 0px;
+     margin-bottom: 10px;
+ }
+}
