@@ -1,43 +1,74 @@
--- phpMyAdmin SQL Dump
--- version 4.5.4.1deb2ubuntu2.1
--- http://www.phpmyadmin.net
---
--- Host: localhost
--- Generation Time: Apr 07, 2021 at 01:31 PM
--- Server version: 5.7.33-0ubuntu0.16.04.1
--- PHP Version: 7.0.33-0ubuntu0.16.04.16
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+CREATE TABLE `user_last_login` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `id_user` bigint(20) NOT NULL,
+  `sessionData` varchar(2048) NOT NULL,
+  `machineIp` varchar(1024) NOT NULL,
+  `userAgent` varchar(128) NOT NULL,
+  `agentString` varchar(1024) NOT NULL,
+  `platform` varchar(128) NOT NULL,
+  `created_dt_tm` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+CREATE TABLE `reset_user_password` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `email` varchar(128) NOT NULL,
+  `activation_id` varchar(32) NOT NULL,
+  `agent` varchar(512) NOT NULL,
+  `client_ip` varchar(32) NOT NULL,
+  `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
+  `created_by` bigint(20) NOT NULL DEFAULT '1',
+  `created_dt_tm` datetime NOT NULL,
+  `updated_by` bigint(20) DEFAULT NULL,
+  `updated_dtm` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Database: `school`
---
 
--- --------------------------------------------------------
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `email` varchar(128) NOT NULL COMMENT 'login email',
+  `password` varchar(128) NOT NULL COMMENT 'hashed login password',
+  `name` varchar(128) DEFAULT NULL COMMENT 'full name of user',
+  `mobile` varchar(20) DEFAULT NULL,
+  `id_role` tinyint(4) NOT NULL,
+  `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
+  `created_by` int(11) NOT NULL,
+  `created_dt_tm` datetime NOT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  `updated_dt_tm` datetime DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
---
--- Table structure for table `permissions`
---
+
+INSERT INTO `users` (`id`, `email`, `password`, `name`, `mobile`, `id_role`, `is_deleted`, `created_by`, `created_dt_Tm`, `updated_by`, `updated_dt_tm`) VALUES
+(1, 'admin@gmail.com', '$2y$10$YykrXgnhZ563BCiC6L2ee.Kktd/Vj/KncTnTeDZQXCWwAQ1xH4Req', 'Administrator', '9890098901', 1, 0, 0, '2015-07-01 18:56:49', 1, '2020-01-30 01:48:49');
+
+
+
+CREATE TABLE `user_roles` (
+  `id` tinyint(4) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `name` varchar(50) NOT NULL COMMENT 'role text'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+
+
+CREATE TABLE `role_permissions` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `id_role` bigint(20) DEFAULT NULL,
+  `id_permission` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
 
 CREATE TABLE `permissions` (
-  `id` bigint(20) NOT NULL,
-  `id_menu` int(20) DEFAULT '0',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `id_menu` int(20) DEFAULT 0,
   `module` varchar(512) DEFAULT '',
   `code` varchar(100) DEFAULT NULL,
   `description` varchar(200) DEFAULT NULL,
   `status` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `permissions`
---
 
 INSERT INTO `permissions` (`id`, `id_menu`, `module`, `code`, `description`, `status`) VALUES
 (7, 3, 'Setup', 'permission.add', 'Add Permission', 1),
@@ -553,201 +584,16 @@ INSERT INTO `permissions` (`id`, `id_menu`, `module`, `code`, `description`, `st
 (571, 111, 'Finance', 'fee_structure.copy_fee_structure', 'Copy Existing Fee Structure', 1),
 (572, 31, 'Setup', 'programme_landscape.addcourse', 'Programme Landscape Add Course', 1);
 
--- --------------------------------------------------------
 
---
--- Table structure for table `reset_user_password`
---
 
-CREATE TABLE `reset_user_password` (
-  `id` bigint(20) NOT NULL,
-  `email` varchar(128) NOT NULL,
-  `activation_id` varchar(32) NOT NULL,
-  `agent` varchar(512) NOT NULL,
-  `client_ip` varchar(32) NOT NULL,
-  `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
-  `created_by` bigint(20) NOT NULL DEFAULT '1',
-  `created_dt_tm` datetime NOT NULL,
-  `updated_by` bigint(20) DEFAULT NULL,
-  `updated_dtm` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `role_permissions`
---
-
-CREATE TABLE `role_permissions` (
-  `id` bigint(20) NOT NULL,
-  `id_role` bigint(20) DEFAULT NULL,
-  `id_permission` bigint(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `salutation_setup`
---
 
 CREATE TABLE `salutation_setup` (
-  `id` int(20) NOT NULL,
+  `id` int(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `name` varchar(250) DEFAULT '',
-  `sequence` int(20) DEFAULT '0',
+  `sequence` int(20) DEFAULT 0,
   `status` int(2) DEFAULT NULL,
   `created_by` int(20) DEFAULT NULL,
-  `created_dt_tm` datetime DEFAULT CURRENT_TIMESTAMP,
+  `created_dt_tm` datetime DEFAULT current_timestamp(),
   `updated_by` int(20) DEFAULT NULL,
-  `updated_dt_tm` datetime DEFAULT CURRENT_TIMESTAMP
+  `updated_dt_tm` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `users`
---
-
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `email` varchar(128) NOT NULL COMMENT 'login email',
-  `password` varchar(128) NOT NULL COMMENT 'hashed login password',
-  `name` varchar(128) DEFAULT NULL COMMENT 'full name of user',
-  `mobile` varchar(20) DEFAULT NULL,
-  `id_role` tinyint(4) NOT NULL,
-  `is_deleted` tinyint(4) NOT NULL DEFAULT '0',
-  `created_by` int(11) NOT NULL,
-  `created_dt_tm` datetime NOT NULL,
-  `updated_by` int(11) DEFAULT NULL,
-  `updated_dt_tm` datetime DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `email`, `password`, `name`, `mobile`, `id_role`, `is_deleted`, `created_by`, `created_dt_tm`, `updated_by`, `updated_dt_tm`) VALUES
-(1, 'admin@gmail.com', '$2y$10$YykrXgnhZ563BCiC6L2ee.Kktd/Vj/KncTnTeDZQXCWwAQ1xH4Req', 'Administrator', '9890098901', 1, 0, 0, '2015-07-01 18:56:49', 1, '2020-01-30 01:48:49');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user_last_login`
---
-
-CREATE TABLE `user_last_login` (
-  `id` bigint(20) NOT NULL,
-  `id_user` bigint(20) NOT NULL,
-  `sessionData` varchar(2048) NOT NULL,
-  `machineIp` varchar(1024) NOT NULL,
-  `userAgent` varchar(128) NOT NULL,
-  `agentString` varchar(1024) NOT NULL,
-  `platform` varchar(128) NOT NULL,
-  `created_dt_tm` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `user_roles`
---
-
-CREATE TABLE `user_roles` (
-  `id` tinyint(4) NOT NULL,
-  `name` varchar(50) NOT NULL COMMENT 'role text'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `user_roles`
---
-
-INSERT INTO `user_roles` (`id`, `name`) VALUES
-(1, 'Admin');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `permissions`
---
-ALTER TABLE `permissions`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `reset_user_password`
---
-ALTER TABLE `reset_user_password`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `role_permissions`
---
-ALTER TABLE `role_permissions`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `salutation_setup`
---
-ALTER TABLE `salutation_setup`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `user_last_login`
---
-ALTER TABLE `user_last_login`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `user_roles`
---
-ALTER TABLE `user_roles`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `permissions`
---
-ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=573;
---
--- AUTO_INCREMENT for table `reset_user_password`
---
-ALTER TABLE `reset_user_password`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `role_permissions`
---
-ALTER TABLE `role_permissions`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `salutation_setup`
---
-ALTER TABLE `salutation_setup`
-  MODIFY `id` int(20) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `user_last_login`
---
-ALTER TABLE `user_last_login`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `user_roles`
---
-ALTER TABLE `user_roles`
-  MODIFY `id` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

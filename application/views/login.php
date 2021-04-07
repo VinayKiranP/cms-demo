@@ -33,7 +33,7 @@
         </div>
       <?php } ?>
     </h2>
-    <form action="<?php echo base_url(); ?>loginMe" method="post">
+    <form action="" method="post">
       <div class="form-group">
         <label>Email Address</label>
         <input type="email" class="form-control" placeholder="Email" name="email" required>

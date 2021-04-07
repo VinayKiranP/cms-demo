@@ -53,12 +53,24 @@ class BaseController extends MX_Controller {
 	/**
 	 * This function is used to check the access
 	 */
-	function checkAccess($code) {
-		$this->load->model('role_model');
-		$canAccess = $this->role_model->checkAccess($this->role,$code);
+	function checkAccess($code)
+    {
+        // return 0;
+        $id_role = $this->role;
 
-		return $canAccess;
-	}
+        // echo $id_role;exit();
+
+        if($id_role == 1)
+        {
+            return 1;
+        }
+        else
+        {
+            $this->load->model('setup/role_model');
+            $canAccess = $this->role_model->checkAccess($this->role, $code);
+            return $canAccess;
+        }
+    }
 	
 	/**
 	 * This function is used to check the access

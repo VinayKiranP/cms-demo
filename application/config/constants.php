@@ -106,9 +106,12 @@ define('SMTP_USER',                             'Your smtp user');		// your smtp
 define('SMTP_PASS',                             'Your smtp password');	// your smtp password
 define('MAIL_PATH',                             '/usr/sbin/sendmail');
  $base_url = $_SERVER['HTTP_HOST'];
- if($base_url == "school.com"){
-define('BASE_PATH',                             'http://school.com/');
-}
- else{
-define('BASE_PATH',                             'http://dashboard.asianherbs.in/');
+
+ if($base_url == "school.com")
+ {
+	define('BASE_PATH',                             'http://school.com/');
+ }
+ else
+ {
+	define('BASE_PATH',                             'http://dashboard.asianherbs.in/');
  }

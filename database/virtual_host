@@ -1,0 +1,38 @@
+sudo nano /etc/apache2/sites-available/school.com.conf
+
+
+<VirtualHost *:80>
+    ServerName school.com
+    DocumentRoot /var/www/html/demo
+
+    SetEnv APPLICATION_ENV "development"
+
+    <Directory /var/www/html/demo>
+        DirectoryIndex index.php
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+    </Directory>
+</VirtualHost>
+
+
+
+sudo a2ensite school.com.conf
+
+sudo service apache2 reload
+
+sudo nano /etc/hosts
+
+mysql -u root -p school < school.sql
+
+
+mysql -u root -p school < camsedu_school.sql
+
+
+SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
+
+
+
+
+RZ8N92C95MH
+

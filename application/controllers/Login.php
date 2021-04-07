@@ -9,96 +9,95 @@
  */
 class Login extends BaseController
 {
-    /**
-     * This is default constructor of the class
-     */
     public function __construct()
     {
         parent::__construct();
         $this->load->model('login_model');
     }
 
-    /**
-     * Index Page for this controller.
-     */
     public function index()
     {
         $this->isLoggedIn();
     }
     
-    /**
-     * This function used to check the user is logged in or not
-     */
     function isLoggedIn()
     {
         $isLoggedIn = $this->session->userdata('isLoggedIn');
         
         if(!isset($isLoggedIn) || $isLoggedIn != TRUE)
         {
-            $this->load->view('login');
+            $this->loginMe();
         }
         else
         {
-            redirect('/setup/user');
+            redirect('/setup/salutation/list');
         }
     }
     
-    
-    /**
-     * This function used to logged in user
-     */
     public function loginMe()
     {
-        $this->load->library('form_validation');
-        
-        $this->form_validation->set_rules('email', 'Email', 'required|valid_email|max_length[128]|trim');
-        $this->form_validation->set_rules('password', 'Password', 'required|max_length[32]');
-        
-        if($this->form_validation->run() == FALSE)
+        if($this->input->post())
         {
-            $this->index();
-        }
-        else
-        {
-            $email = strtolower($this->security->xss_clean($this->input->post('email')));
-            $password = $this->input->post('password');
+            // echo "<Pre>"; print_r($this->input->post());exit;
             
-            $result = $this->login_model->loginMe($email, $password);
+            $this->load->library('form_validation');
+            $this->form_validation->set_rules('email', 'Email', 'required|valid_email|max_length[128]|trim');
+            $this->form_validation->set_rules('password', 'Password', 'required|max_length[32]');
             
-            if(!empty($result))
+            if($this->form_validation->run() == FALSE)
             {
-                $lastLogin = $this->login_model->lastLoginInfo($result->userId);
-
-                $sessionArray = array('userId'=>$result->userId,                    
-                                        'role'=>$result->roleId,
-                                        'roleText'=>$result->role,
-                                        'name'=>$result->name,
-                                        'lastLogin'=> $lastLogin->createdDtm,
-                                        'isLoggedIn' => TRUE
-                                );
-
-                $this->session->set_userdata($sessionArray);
-
-                unset($sessionArray['userId'], $sessionArray['isLoggedIn'], $sessionArray['lastLogin']);
-
-                $loginInfo = array("userId"=>$result->userId, "sessionData" => json_encode($sessionArray), "machineIp"=>$_SERVER['REMOTE_ADDR'], "userAgent"=>getBrowserAgent(), "agentString"=>$this->agent->agent_string(), "platform"=>$this->agent->platform());
-
-                $this->login_model->lastLogin($loginInfo);
-                
-                redirect('/setup/user');
+                $this->index();
             }
             else
             {
-                $this->session->set_flashdata('error', 'Email or password mismatch');
+                $email = strtolower($this->security->xss_clean($this->input->post('email')));
+                $password = $this->input->post('password');
                 
-                $this->index();
+                $result = $this->login_model->loginMe($email, $password);
+                
+                if(!empty($result))
+                {
+                    $lastLogin = $this->login_model->lastLoginInfo($result->id);
+
+                    if($lastLogin == '')
+                    {
+                        $user_last_login = date('Y-m-d h:i:s');
+                    }
+                    else
+                    {
+                        $user_last_login = $lastLogin->created_dt_tm;
+                    }
+
+                    $sessionArray = array('id_user'=>$result->id,                    
+                                            'id_role'=>$result->id_role,
+                                            'role'=>$result->role,
+                                            'name'=>$result->name,
+                                            'lastLogin'=> $user_last_login,
+                                            'isLoggedIn' => TRUE
+                                    );
+
+                    $this->session->set_userdata($sessionArray);
+
+                    unset($sessionArray['userId'], $sessionArray['isLoggedIn'], $sessionArray['lastLogin']);
+
+                    $loginInfo = array("id_user"=>$result->userId, "sessionData" => json_encode($sessionArray), "machineIp"=>$_SERVER['REMOTE_ADDR'], "userAgent"=>getBrowserAgent(), "agentString"=>$this->agent->agent_string(), "platform"=>$this->agent->platform());
+
+                    $this->login_model->lastLogin($loginInfo);
+                    
+                    redirect('/setup/salutation/list');
+                }
+                else
+                {
+                    $this->session->set_flashdata('error', 'Email or password mismatch');
+                    
+                    // $this->index();
+                }
             }
         }
+        
+        $this->load->view('login');
     }
 
-    /**
-     * This function used to load forgot password view
-     */
     public function forgotPassword()
     {
         $isLoggedIn = $this->session->userdata('isLoggedIn');
@@ -113,15 +112,11 @@ class Login extends BaseController
         }
     }
     
-    /**
-     * This function used to generate reset password request link
-     */
     function resetPasswordUser()
     {
         $status = '';
         
         $this->load->library('form_validation');
-        
         $this->form_validation->set_rules('login_email','Email','trim|required|valid_email');
                 
         if($this->form_validation->run() == FALSE)
@@ -181,11 +176,6 @@ class Login extends BaseController
         }
     }
 
-    /**
-     * This function used to reset the password 
-     * @param string $activation_id : This is unique id
-     * @param string $email : This is user email
-     */
     function resetPasswordConfirmUser($activation_id, $email)
     {
         // Get email and activation code from URL values at index 3-4
@@ -207,9 +197,6 @@ class Login extends BaseController
         }
     }
     
-    /**
-     * This function used to create new password for user
-     */
     function createPasswordUser()
     {
         $status = '';
@@ -253,5 +240,4 @@ class Login extends BaseController
         }
     }
 }
-
 ?>
